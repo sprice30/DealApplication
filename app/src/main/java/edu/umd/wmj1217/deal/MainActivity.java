@@ -1,6 +1,7 @@
 package edu.umd.wmj1217.deal;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -57,6 +58,11 @@ public class MainActivity extends Activity
         } else {
             super.onBackPressed();
         }
+    }
+
+    public void onClickItemDetails (View v){
+        Intent myIntent = new Intent(MainActivity.this, CouponDetails.class);
+        startActivity(myIntent);
     }
 
     @Override
