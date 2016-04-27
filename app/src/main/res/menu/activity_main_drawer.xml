@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/clothing"
+            android:title="Clothing" />
+        <item
+            android:id="@+id/electronics"
+            android:title="Electronics" />
+        <item
+            android:id="@+id/food"
+            android:title="Food" />
+        <item
+            android:id="@+id/travel"
+            android:title="Travel" />
+    </group>
+
+    <item android:title="Coupon Book">
+        <menu>
+            <item
+                android:id="@+id/viewCoupon"
+                android:icon="@android:drawable/ic_menu_view"
+                android:title="View My Coupon Book" />
+
+        </menu>
+    </item>
+
+</menu>
