@@ -1,7 +1,8 @@
 package edu.umd.wmj1217.deal;
 
 /**
- * Created by yoonshik on 4/27/16.
+ * @author yoonshik
+ * A SaleListing object represents an item on sale.
  */
 public class SaleListing {
     private String ID;
@@ -49,6 +50,4 @@ public class SaleListing {
     public double getListPrice() {
         return this.listPrice;
     }
-
-
 }
