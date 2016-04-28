@@ -21,7 +21,8 @@ import java.util.Scanner;
 public class WootFetcher {
     public static ArrayList<SaleListing> listArray= new ArrayList<>();
     final String DEFAULT_DOMAIN = "www.woot.com";
-    final String DEFAULT_URL = "http://api.woot.com/2/events.json?key=71c1a475436e487383411769833f9539&select=Offers.Items,Offers.Features,Offers.Title&site=";
+    final String DEFAULT_URL = "http://api.woot.com/2/events.json?key=71c1a475436e487383411769833f9539&select=Offers.Items,Offers.Features,Offers.Title,Offers.Url,Photos&site=";
+
     public WootFetcher(String domain) {
         new NetworkingTask().execute(domain);
     }
@@ -42,12 +43,11 @@ public class WootFetcher {
         @Override
         protected void onPostExecute(Boolean result) {
             System.out.println("POSTEXE");
+
             if (result) {
+                // update list adapter in main activity
+                // TODO - make this code less shitty; remove static variables
                 getList();
-                for (int i = 0; i < listArray.size(); i++) {
-                    MainActivity.linearLayout.addView(MainActivity.listingAdapter.getView(i, null, null));
-                }
-                //System.out.println("SIZE OF LIST: " + MainActivity.listingAdapter.getCount());
             }
         }
     }
@@ -64,7 +64,7 @@ public class WootFetcher {
 
         try {
             String site = (domain == null) ? DEFAULT_DOMAIN : domain + ".woot.com";
-            URL url = new URL("http://api.woot.com/2/events.json?key=71c1a475436e487383411769833f9539&select=Offers.Items,Offers.Features,Offers.Title,Url&site=www.woot.com");
+            URL url = new URL(DEFAULT_URL + site);
             Scanner scan = new Scanner(url.openStream());
             String str = new String();
             while (scan.hasNext())
@@ -75,7 +75,7 @@ public class WootFetcher {
                 JSONArray obj = new JSONArray(str);
                 for (int i = 1; i < obj.length(); i++) {
                     JSONObject offer = obj.getJSONObject(i).getJSONArray("Offers").getJSONObject(0);
-                    String itemUrl = obj.getJSONObject(i).getString("Url");
+                    String itemUrl = offer.getString("Url");
                     String title = offer.getString("Title");
                     String feature = offer.getString("Features");
                     JSONArray items = offer.getJSONArray("Items");
@@ -89,8 +89,8 @@ public class WootFetcher {
                     catch (Exception e) {
                         listPrice = 0;
                     }
-                    // System.out.println(salePrice);
-                    listArray.add(new SaleListing(id, title, feature, itemUrl, "", salePrice, listPrice));
+                    String imageUrl = obj.getJSONObject(i).getJSONArray("Photos").getJSONObject(0).getString("Url");
+                    listArray.add(new SaleListing(id, title, feature, itemUrl, imageUrl, salePrice, listPrice));
                 }
             }
             return true;

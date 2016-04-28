@@ -62,8 +62,7 @@ public class ListingAdapter extends BaseAdapter{
     // Retrieve the number of ToDoItems
 
     @Override
-    public Object getItem(int pos) {
-
+    public SaleListing getItem(int pos) {
         return mItems.get(pos);
 
     }
@@ -113,9 +112,9 @@ public class ListingAdapter extends BaseAdapter{
         titleText.setTextColor(Color.BLACK);
 
         final ImageView flag = (ImageView) itemLayout.findViewById(R.id.imageViewMain);
-        /*new DownloadImageTask(flag)
+        new DownloadImageTask(flag)
                 .execute(saleListing.getImageUrl());
-*/
+
         // Return the View you just created
         return itemLayout;
 

@@ -41,7 +41,7 @@ public class MainActivity extends Activity
 
     final static String TAG = "DealsApp";
     public static ListingAdapter listingAdapter;
-    public static LinearLayout linearLayout;
+    public static ListView m_list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +57,31 @@ public class MainActivity extends Activity
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        linearLayout = (LinearLayout)findViewById(R.id.linearLayout);
+
+        // get list
+        m_list = (ListView) findViewById(R.id.list);
+
+        // instantiate and set list adapter
         listingAdapter = new ListingAdapter(getApplicationContext());
+        m_list.setAdapter(listingAdapter);
+
+        // set on click listenter
+        m_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // on item click, go to coupon_details
+                Intent myIntent = new Intent(MainActivity.this, CouponDetails.class);
+                SaleListing listing = listingAdapter.getItem(position);
+                myIntent.putExtra("Title", listing.getTitle());
+                myIntent.putExtra("SalePrice", listing.getSalePrice() + "");
+                myIntent.putExtra("Description", listing.getDescription());
+                myIntent.putExtra("Image", listing.getImageUrl());
+                myIntent.putExtra("Url", listing.getItemUrl());
+                startActivity(myIntent);
+            }
+        });
+        // fetch data
+        // TODO - Loading icon while waiting for result
         WootFetcher fetch = new WootFetcher(null);
     }
 
@@ -70,11 +93,6 @@ public class MainActivity extends Activity
         } else {
             super.onBackPressed();
         }
-    }
-
-    public void onClickItemDetails (View v){
-        Intent myIntent = new Intent(MainActivity.this, CouponDetails.class);
-        startActivity(myIntent);
     }
 
     @Override

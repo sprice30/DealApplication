@@ -13,7 +13,6 @@
             android:layout_height="60dp"
             android:id="@+id/imageViewMain"
             android:scaleType="fitXY"
-            android:onClick="onClickItemDetails"
             android:src="@mipmap/ic_launcher"
             android:layout_weight="0.05" />
 

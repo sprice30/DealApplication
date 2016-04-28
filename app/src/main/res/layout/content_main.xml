@@ -36,21 +36,13 @@
         android:layout_below="@+id/search_view"
         android:layout_centerHorizontal="true" />
 
-    <ScrollView
+    <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/title"
-        android:id="@+id/scrollView">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:id="@+id/linearLayout">
-
-        </LinearLayout>
-
-    </ScrollView>
+        android:id="@+id/list"
+        android:layout_gravity="center_horizontal"
+        android:drawSelectorOnTop="false"
+        android:layout_below="@+id/title" />
 
 
 
