@@ -31,6 +31,10 @@ public class SaleListing {
         return this.ID;
     }
 
+    public String getTitle(){
+        return this.title;
+    }
+
     public String getDescription() {
         return this.description;
     }
