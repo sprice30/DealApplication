@@ -20,8 +20,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Deal Store"
-            android:id="@+id/textView"
+            android:text="Title"
+            android:id="@+id/title"
             android:layout_row="0"
             android:layout_column="0" />
 
@@ -38,8 +38,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Details"
-            android:id="@+id/textView4"
+            android:text="Price"
+            android:id="@+id/salePrice"
             android:layout_row="4"
             android:layout_column="0" />
 
@@ -48,7 +48,7 @@
             android:layout_height="156dp"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Description"
-            android:id="@+id/textView2"
+            android:id="@+id/description"
             android:layout_row="5"
             android:layout_column="0" />
 
@@ -56,7 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Expiration"
+            android:text="Expiration Date"
             android:id="@+id/textView3"
             android:layout_row="6"
             android:layout_column="0" />
@@ -86,13 +86,4 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Print"
-        android:id="@+id/button4"
-        android:layout_row="5"
-        android:layout_column="2"
-        android:layout_below="@+id/gridLayout"
-        android:layout_centerHorizontal="true" />
 </RelativeLayout>
