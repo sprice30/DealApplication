@@ -3,6 +3,7 @@ package edu.umd.wmj1217.deal;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
@@ -109,11 +110,12 @@ public class ListingAdapter extends BaseAdapter{
 
         final TextView titleText = (TextView) itemLayout.findViewById(R.id.titleMain);
         titleText.setText(saleListing.getTitle());
+        titleText.setTextColor(Color.BLACK);
 
         final ImageView flag = (ImageView) itemLayout.findViewById(R.id.imageViewMain);
-        new DownloadImageTask(flag)
+        /*new DownloadImageTask(flag)
                 .execute(saleListing.getImageUrl());
-
+*/
         // Return the View you just created
         return itemLayout;
 

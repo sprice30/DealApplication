@@ -2,9 +2,11 @@ package edu.umd.wmj1217.deal;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,8 +18,30 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.*;
 
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.StringReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Scanner;
+
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import org.json.*;
+
+
 public class MainActivity extends Activity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    final static String TAG = "DealsApp";
+    public static ListingAdapter listingAdapter;
+    public static LinearLayout linearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,21 +57,9 @@ public class MainActivity extends Activity
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        LinearLayout linearLayout = (LinearLayout)findViewById(R.id.linearLayout);
-        for(int i = 0;i<100;i++) {
-            View coupon = getLayoutInflater().inflate(R.layout.coupon_item, null);
-            linearLayout.addView(coupon);
-        }
-
-        //     ScrollView scrollView = (ScrollView)findViewById(R.id.scrollLayout);
-//        for(int i = 0;i<20;i++) {
-//
-//
-//            View coupon = getLayoutInflater().inflate(R.layout.coupon_item, null);
-//            scrollView.addView(coupon);
-//        }
-
-
+        linearLayout = (LinearLayout)findViewById(R.id.linearLayout);
+        listingAdapter = new ListingAdapter(getApplicationContext());
+        WootFetcher fetch = new WootFetcher(null);
     }
 
     @Override
