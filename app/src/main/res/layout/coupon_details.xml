@@ -84,7 +84,16 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Share"
+        android:onClick="onShareClick"
+        android:id="@+id/share"
+        android:layout_row="42"
+        android:layout_column="1"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true" />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

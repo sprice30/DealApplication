@@ -54,7 +54,13 @@ public class CouponDetails extends AppCompatActivity {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getIntent().getStringExtra("Url")));
         startActivity(browserIntent);
     }
-
+    public void onShareClick(View view){
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Check out this deal!");
+        intent.putExtra(Intent.EXTRA_TEXT,"Check out this deal! The website is "+getIntent().getStringExtra("Url"));
+        startActivity(Intent.createChooser(intent, "share with my friend"));
+    }
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView image;
 
