@@ -43,6 +43,7 @@ public class MainActivity extends Activity
     public static ListingAdapter listingAdapter;
     public static ListView m_list;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,10 +101,33 @@ public class MainActivity extends Activity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if(id == R.id.clothing){
+            WootFetcher fetch1 = new WootFetcher("clothing");
+
+        } else if (id == R.id.electronics){
+            WootFetcher fetch2 = new WootFetcher("electronics");
+        }else if(id == R.id.food){
+            WootFetcher fetch3 = new WootFetcher("food");
+        }else{//id == R.id.travel
+            WootFetcher fetch4 = new WootFetcher("travel");
+        }
+
+        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
 }
 
