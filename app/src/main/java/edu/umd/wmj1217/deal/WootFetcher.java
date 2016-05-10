@@ -2,7 +2,7 @@ package edu.umd.wmj1217.deal;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Bundle;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,6 +20,8 @@ import java.util.Scanner;
  * Created by seankallungal on 4/27/16.
  */
 public class WootFetcher {
+    public static final String TAG = "WootFetcher";
+
     public ArrayList<SaleListing> listArray= new ArrayList<>();
     final String DEFAULT_DOMAIN = "www.woot.com";
     final String DEFAULT_URL = "http://api.woot.com/2/events.json?key=71c1a475436e487383411769833f9539&select=Offers.Items,Offers.Features,Offers.Title,Offers.Url,Photos&site=";
@@ -88,10 +90,14 @@ public class WootFetcher {
                     String imageUrl = "";
                     try {
                         listPrice = Double.parseDouble(items.getJSONObject(0).getString("ListPrice"));
-                        imageUrl = obj.getJSONObject(i).getJSONArray("Photos").getJSONObject(0).getString("Url");
                     }
                     catch (Exception e) {
                         listPrice = 0;
+                    }
+                    try {
+                        imageUrl = obj.getJSONObject(i).getJSONArray("Photos").getJSONObject(0).getString("Url");
+                    } catch (Exception e) {
+                        Log.d(TAG, "Unable to obtain image URL for " + title);
                     }
 
                     listArray.add(new SaleListing(id, title, feature, itemUrl, imageUrl, salePrice, listPrice));

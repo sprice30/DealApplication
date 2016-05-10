@@ -140,6 +140,13 @@ public class ListingAdapter extends BaseAdapter implements Filterable {
 
         protected Bitmap doInBackground(String... urls) {
             String urldisplay = urls[0];
+
+            System.out.println("URL: " + urldisplay);
+            if (urldisplay == null) {
+                System.out.println("URL is null");
+            } else if (urldisplay.equals("")) {
+                System.out.println("URL is empty");
+            }
             Bitmap bitmap = null;
             if (urldisplay.length() > 0) {
                 try {
