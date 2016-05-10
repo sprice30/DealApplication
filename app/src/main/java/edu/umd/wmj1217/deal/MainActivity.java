@@ -98,18 +98,6 @@ public class MainActivity extends Activity
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        listingAdapter.clear();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        listingAdapter.clear();
-    }
-
-    @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
