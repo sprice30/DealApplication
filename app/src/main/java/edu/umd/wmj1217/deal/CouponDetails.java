@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.InputStream;
 
@@ -38,7 +39,7 @@ public class CouponDetails extends AppCompatActivity {
 
         final TextView saleText = (TextView) findViewById(R.id.salePrice);
         saleText.setText(intent.getStringExtra("SalePrice"));
-        saleText.setTextColor(Color.BLACK);
+
 
         final ImageView image = (ImageView) findViewById(R.id.imageView);
         new DownloadImageTask(image)
@@ -55,11 +56,15 @@ public class CouponDetails extends AppCompatActivity {
         String description = getIntent().getStringExtra("Description");
         String itemUrl = getIntent().getStringExtra("Url");
         String imageUrl = getIntent().getStringExtra("Image");
-        double salePrice = Double.valueOf(getIntent().getStringExtra("SalePrice").substring(1));
-        double listPrice = Double.valueOf(getIntent().getStringExtra("ListPrice").substring(1));
+        System.out.println(getIntent().getStringExtra("SalePrice"));
 
+        double salePrice = Double.valueOf(getIntent().getStringExtra("SalePrice").substring(1).replaceAll(",", ""));
+        double listPrice = Double.valueOf(getIntent().getStringExtra("ListPrice").substring(1).replaceAll(",", ""));
+
+        Toast.makeText(getApplicationContext(), title + " was saved to Coupon Book", Toast.LENGTH_SHORT).show();
 
         MainActivity.couponBook.add(new SaleListing(id, title, description, itemUrl, imageUrl, salePrice, listPrice));
+        
     }
 
     public void onDealClick(View view) {
