@@ -12,7 +12,6 @@ import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.io.InputStream;
@@ -50,6 +49,28 @@ public class CouponDetails extends AppCompatActivity {
         finish();
     }
 
+    public void onSaveClick(View v){
+
+//        myIntent.putExtra("Id", listing.getID());
+//        myIntent.putExtra("Title", listing.getTitle());
+//        myIntent.putExtra("Description", listing.getDescription());
+//        myIntent.putExtra("Url", listing.getItemUrl());
+//        myIntent.putExtra("Image", listing.getImageUrl());
+//        myIntent.putExtra("SalePrice", listing.getSalePrice() + "");
+//        myIntent.putExtra("ListPrice", listing.getListPrice() + "");
+
+        String id = getIntent().getStringExtra("Id");
+        String title = getIntent().getStringExtra("Title");
+        String description = getIntent().getStringExtra("Description");
+        String itemUrl = getIntent().getStringExtra("Url");
+        String imageUrl = getIntent().getStringExtra("Image");
+        double salePrice = Double.valueOf(getIntent().getStringExtra("SalePrice"));
+        double listPrice = Double.valueOf(getIntent().getStringExtra("ListPrice"));
+
+        MainActivity.couponBook.add(new SaleListing(id, title, description, itemUrl, imageUrl, salePrice, listPrice));
+        finish();
+    }
+
     public void onDealClick(View view) {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getIntent().getStringExtra("Url")));
         startActivity(browserIntent);
@@ -58,8 +79,8 @@ public class CouponDetails extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
         intent.putExtra(Intent.EXTRA_SUBJECT, "Check out this deal!");
-        intent.putExtra(Intent.EXTRA_TEXT,"Check out this deal! The website is "+getIntent().getStringExtra("Url"));
-        startActivity(Intent.createChooser(intent, "share with my friend"));
+        intent.putExtra(Intent.EXTRA_TEXT,"Check out this deal for " + getIntent().getStringExtra("Title") + "! " + getIntent().getStringExtra("Url"));
+        startActivity(Intent.createChooser(intent, "Share this deal for " + getIntent().getStringExtra("Title")));
     }
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView image;

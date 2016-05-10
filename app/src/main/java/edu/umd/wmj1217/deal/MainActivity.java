@@ -14,6 +14,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 
 public class MainActivity extends Activity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -22,6 +26,12 @@ public class MainActivity extends Activity
     public static ListingAdapter listingAdapter;
     public static ListView m_list;
 
+
+    public static ArrayList<SaleListing> electronics = new ArrayList<>();
+    public static ArrayList<SaleListing> home = new ArrayList<>();
+    public static ArrayList<SaleListing> foodAndWine = new ArrayList<>();
+    public static ArrayList<SaleListing> shirts = new ArrayList<>();
+    public static ArrayList<SaleListing> couponBook = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,11 +62,15 @@ public class MainActivity extends Activity
                 // on item click, go to coupon_details
                 Intent myIntent = new Intent(MainActivity.this, CouponDetails.class);
                 SaleListing listing = listingAdapter.getItem(position);
+
+                myIntent.putExtra("Id", listing.getID());
                 myIntent.putExtra("Title", listing.getTitle());
-                myIntent.putExtra("SalePrice", listing.getSalePrice() + "");
                 myIntent.putExtra("Description", listing.getDescription());
-                myIntent.putExtra("Image", listing.getImageUrl());
                 myIntent.putExtra("Url", listing.getItemUrl());
+                myIntent.putExtra("Image", listing.getImageUrl());
+                myIntent.putExtra("SalePrice", listing.getSalePrice() + "");
+                myIntent.putExtra("ListPrice", listing.getListPrice() + "");
+
                 startActivity(myIntent);
             }
         });
@@ -81,7 +95,7 @@ public class MainActivity extends Activity
         });
         // fetch data
         // TODO - Loading icon while waiting for result
-        WootFetcher fetch = new WootFetcher(null);
+        WootFetcher fetch = new WootFetcher(null, (List) new ArrayList<>());
     }
 
     @Override
@@ -99,16 +113,35 @@ public class MainActivity extends Activity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        WootFetcher fetch;
+
         if(id == R.id.clothing){
-            WootFetcher fetch1 = new WootFetcher("shirt");
+            if (shirts.isEmpty()) {
+                fetch = new WootFetcher("shirt", shirts);
+            } else {
+                loadDealList(shirts);
+            }
         } else if (id == R.id.electronics){
-            WootFetcher fetch2 = new WootFetcher("electronics");
+            if (shirts.isEmpty()) {
+                fetch = new WootFetcher("electronics", electronics);
+            } else {
+                loadDealList(electronics);
+            }
         } else if(id == R.id.food){
-            WootFetcher fetch3 = new WootFetcher("wine");
+            if (shirts.isEmpty()) {
+                fetch = new WootFetcher("wine", foodAndWine);
+            } else {
+                loadDealList(foodAndWine);
+            }
         } else if (id == R.id.travel) {
-            WootFetcher fetch4 = new WootFetcher("home");
+            if (shirts.isEmpty()) {
+                fetch = new WootFetcher("home", home);
+            } else {
+                loadDealList(home);
+            }
         } else {
             System.out.println("Coupon book clicked!");
+            loadDealList(couponBook);
         }
 
         final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -116,6 +149,14 @@ public class MainActivity extends Activity
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void loadDealList(List<SaleListing> list) {
+        listingAdapter.clear();
+        Iterator<SaleListing> it = list.iterator();
+        while (it.hasNext()) {
+            listingAdapter.add(it.next());
+        }
     }
 
     @Override

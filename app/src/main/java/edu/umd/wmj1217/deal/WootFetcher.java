@@ -12,8 +12,8 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -22,12 +22,14 @@ import java.util.Scanner;
 public class WootFetcher {
     public static final String TAG = "WootFetcher";
 
-    public ArrayList<SaleListing> listArray= new ArrayList<>();
+    public List<SaleListing> listArray;
     final String DEFAULT_DOMAIN = "www.woot.com";
     final String DEFAULT_URL = "http://api.woot.com/2/events.json?key=71c1a475436e487383411769833f9539&select=Offers.Items,Offers.Features,Offers.Title,Offers.Url,Photos&site=";
 
-    public WootFetcher(String domain) {
+    public WootFetcher(String domain, List<SaleListing> listArray) {
+        this.listArray = listArray;
         new NetworkingTask().execute(domain);
+
     }
 
     public class NetworkingTask extends AsyncTask<String, Void, Boolean> {
@@ -49,7 +51,7 @@ public class WootFetcher {
 
             if (result) {
                 // update list adapter in main activity
-                // TODO - make this code less shitty; remove static variables
+                // TODO - make this code better, remove static variables
                 MainActivity.listingAdapter.clear();
                 getList();
             }
