@@ -12,26 +12,20 @@
     tools:context="edu.umd.wmj1217.deal.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="?android:attr/actionModeBackground"
-    android:orientation="vertical">
-
     <SearchView
         android:id="@+id/search_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true" >
-        >
     </SearchView>
 
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hottest Deal"
+        android:text="@string/hottest_deal"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:id="@+id/title"
         android:layout_below="@+id/search_view"
         android:layout_centerHorizontal="true" />

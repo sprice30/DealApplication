@@ -3,17 +3,17 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/clothing"
-            android:title="Shirts" />
-        <item
             android:id="@+id/electronics"
             android:title="Electronics" />
+        <item
+            android:id="@+id/travel"
+            android:title="Home" />
         <item
             android:id="@+id/food"
             android:title="Food &amp; Wine" />
         <item
-            android:id="@+id/travel"
-            android:title="Home" />
+            android:id="@+id/clothing"
+            android:title="Shirts" />
     </group>
 
     <item android:title="Coupon Book">

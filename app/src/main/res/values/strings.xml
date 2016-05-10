@@ -1,8 +1,10 @@
- <resources>
+<resources>
     <string name="app_name">Deal</string>
+
+    <string name="hottest_deal">Hottest Deal</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="search">Search Counpon</string>
+    <string name="search">Search Coupon</string>
 </resources>
