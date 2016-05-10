@@ -14,16 +14,15 @@
         <item
             android:id="@+id/clothing"
             android:title="Shirts" />
+
+
+        <item android:title="My Account">
+            <menu>
+                <item
+                    android:id="@+id/viewCoupon"
+                    android:title="Coupon Book" />
+            </menu>
+        </item>
     </group>
-
-    <item android:title="Coupon Book">
-        <menu>
-            <item
-                android:id="@+id/viewCoupon"
-                android:icon="@android:drawable/ic_menu_view"
-                android:title="View My Coupon Book" />
-
-        </menu>
-    </item>
 
 </menu>

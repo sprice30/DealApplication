@@ -61,6 +61,8 @@ public class MainActivity extends Activity
             }
         });
 
+
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -99,12 +101,14 @@ public class MainActivity extends Activity
 
         if(id == R.id.clothing){
             WootFetcher fetch1 = new WootFetcher("shirt");
-        }else if (id == R.id.electronics){
+        } else if (id == R.id.electronics){
             WootFetcher fetch2 = new WootFetcher("electronics");
-        }else if(id == R.id.food){
+        } else if(id == R.id.food){
             WootFetcher fetch3 = new WootFetcher("wine");
-        }else{//id == R.id.travel
+        } else if (id == R.id.travel) {
             WootFetcher fetch4 = new WootFetcher("home");
+        } else {
+            System.out.println("Coupon book clicked!");
         }
 
         final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
