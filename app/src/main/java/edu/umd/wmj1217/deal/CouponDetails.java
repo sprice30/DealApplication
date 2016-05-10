@@ -55,8 +55,9 @@ public class CouponDetails extends AppCompatActivity {
         String description = getIntent().getStringExtra("Description");
         String itemUrl = getIntent().getStringExtra("Url");
         String imageUrl = getIntent().getStringExtra("Image");
-        double salePrice = Double.valueOf(getIntent().getStringExtra("SalePrice"));
-        double listPrice = Double.valueOf(getIntent().getStringExtra("ListPrice"));
+        double salePrice = Double.valueOf(getIntent().getStringExtra("SalePrice").substring(1));
+        double listPrice = Double.valueOf(getIntent().getStringExtra("ListPrice").substring(1));
+
 
         MainActivity.couponBook.add(new SaleListing(id, title, description, itemUrl, imageUrl, salePrice, listPrice));
     }

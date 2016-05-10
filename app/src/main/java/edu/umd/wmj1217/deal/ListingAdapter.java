@@ -3,7 +3,6 @@ package edu.umd.wmj1217.deal;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
@@ -120,7 +119,9 @@ public class ListingAdapter extends BaseAdapter implements Filterable {
 
         final TextView titleText = (TextView) itemLayout.findViewById(R.id.titleMain);
         titleText.setText(saleListing.getTitle());
-        titleText.setTextColor(Color.BLACK);
+
+        final TextView salePriceText = (TextView) itemLayout.findViewById(R.id.salePriceMain);
+        salePriceText.setText(saleListing.getSalePriceText());
 
         final ImageView flag = (ImageView) itemLayout.findViewById(R.id.imageViewMain);
         new DownloadImageTask(flag)

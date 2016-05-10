@@ -1,10 +1,15 @@
 package edu.umd.wmj1217.deal;
 
+import java.text.NumberFormat;
+
 /**
  * @author yoonshik
  * A SaleListing object represents an item on sale.
  */
 public class SaleListing {
+
+    public static final NumberFormat formatter = NumberFormat.getCurrencyInstance();
+
     private String ID;
     private String title;
     private String description;
@@ -53,5 +58,13 @@ public class SaleListing {
 
     public double getListPrice() {
         return this.listPrice;
+    }
+
+    public String getSalePriceText() {
+        return formatter.format(salePrice);
+    }
+
+    public String getListPriceText() {
+        return formatter.format(listPrice);
     }
 }

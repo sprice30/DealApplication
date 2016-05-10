@@ -26,7 +26,6 @@ public class MainActivity extends Activity
     public static ListingAdapter listingAdapter;
     public static ListView m_list;
 
-
     public static ArrayList<SaleListing> electronics = new ArrayList<>();
     public static ArrayList<SaleListing> home = new ArrayList<>();
     public static ArrayList<SaleListing> foodAndWine = new ArrayList<>();
@@ -68,8 +67,8 @@ public class MainActivity extends Activity
                 myIntent.putExtra("Description", listing.getDescription());
                 myIntent.putExtra("Url", listing.getItemUrl());
                 myIntent.putExtra("Image", listing.getImageUrl());
-                myIntent.putExtra("SalePrice", listing.getSalePrice() + "");
-                myIntent.putExtra("ListPrice", listing.getListPrice() + "");
+                myIntent.putExtra("SalePrice", listing.getSalePriceText());
+                myIntent.putExtra("ListPrice", listing.getListPriceText());
 
                 startActivity(myIntent);
             }
@@ -96,6 +95,18 @@ public class MainActivity extends Activity
         // fetch data
         // TODO - Loading icon while waiting for result
         WootFetcher fetch = new WootFetcher(null, (List) new ArrayList<>());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        listingAdapter.clear();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        listingAdapter.clear();
     }
 
     @Override
@@ -153,10 +164,13 @@ public class MainActivity extends Activity
 
     public void loadDealList(List<SaleListing> list) {
         listingAdapter.clear();
-        Iterator<SaleListing> it = list.iterator();
-        while (it.hasNext()) {
-            listingAdapter.add(it.next());
+        if (listingAdapter.isEmpty()) {
+            Iterator<SaleListing> it = list.iterator();
+            while (it.hasNext()) {
+                listingAdapter.add(it.next());
+            }
         }
+
     }
 
     @Override

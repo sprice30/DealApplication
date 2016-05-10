@@ -3,29 +3,47 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <TableRow
+
+
+    <ImageView
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageViewMain"
+        android:scaleType="fitXY"
+        android:src="@mipmap/ic_launcher"
+        android:layout_weight="0.05"
+        android:layout_marginRight="12dp"
+        android:layout_marginLeft="8dp"
+        />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1">
-
-
-        <ImageView
-            android:layout_marginTop="3dp"
-            android:layout_marginBottom="3dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageViewMain"
-            android:scaleType="fitXY"
-            android:src="@mipmap/ic_launcher"
-            android:layout_weight="0.05" />
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/imageView"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_marginBottom="12dp"
+        >
 
         <TextView
-            android:id="@+id/titleMain"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
             android:text="Title"
-            android:textAlignment="center" />
-    </TableRow>
+            android:id="@+id/titleMain"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
+            android:text="Price"
+            android:id="@+id/salePriceMain"
+            />
+    </LinearLayout>
+
 
 </LinearLayout>
