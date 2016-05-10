@@ -64,7 +64,7 @@ public class CouponDetails extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), title + " was saved to Coupon Book", Toast.LENGTH_SHORT).show();
 
         MainActivity.couponBook.add(new SaleListing(id, title, description, itemUrl, imageUrl, salePrice, listPrice));
-        
+
     }
 
     public void onDealClick(View view) {
