@@ -28,7 +28,7 @@ public class ListingAdapter extends BaseAdapter implements Filterable {
     private final Context mContext;
     private ItemFilter mFilter = new ItemFilter();
 
-    private static final String TAG = "Lab-LocationLab";
+    private static final String TAG = "ListingAdapter";
 
     public ListingAdapter(Context context) {
 
@@ -143,9 +143,9 @@ public class ListingAdapter extends BaseAdapter implements Filterable {
 
             System.out.println("URL: " + urldisplay);
             if (urldisplay == null) {
-                System.out.println("URL is null");
+                Log.d(TAG, "URL is null");
             } else if (urldisplay.equals("")) {
-                System.out.println("URL is empty");
+                Log.d(TAG, "URL is empty");
             }
             Bitmap bitmap = null;
             if (urldisplay.length() > 0) {
