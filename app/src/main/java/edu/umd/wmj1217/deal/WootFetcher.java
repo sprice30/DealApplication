@@ -20,7 +20,7 @@ import java.util.Scanner;
  * Created by seankallungal on 4/27/16.
  */
 public class WootFetcher {
-    public static ArrayList<SaleListing> listArray= new ArrayList<>();
+    public ArrayList<SaleListing> listArray= new ArrayList<>();
     final String DEFAULT_DOMAIN = "www.woot.com";
     final String DEFAULT_URL = "http://api.woot.com/2/events.json?key=71c1a475436e487383411769833f9539&select=Offers.Items,Offers.Features,Offers.Title,Offers.Url,Photos&site=";
 
@@ -48,6 +48,7 @@ public class WootFetcher {
             if (result) {
                 // update list adapter in main activity
                 // TODO - make this code less shitty; remove static variables
+                MainActivity.listingAdapter.clear();
                 getList();
             }
         }
@@ -74,6 +75,7 @@ public class WootFetcher {
 
             if (str != null) {
                 JSONArray obj = new JSONArray(str);
+                listArray.clear();
                 for (int i = 1; i < obj.length(); i++) {
                     JSONObject offer = obj.getJSONObject(i).getJSONArray("Offers").getJSONObject(0);
                     String itemUrl = offer.getString("Url");
@@ -83,14 +85,15 @@ public class WootFetcher {
                     String id = items.getJSONObject(0).getString("Id");
                     double salePrice = Double.parseDouble(items.getJSONObject(0).getString("SalePrice"));
                     double listPrice = 0;
-
+                    String imageUrl = "";
                     try {
                         listPrice = Double.parseDouble(items.getJSONObject(0).getString("ListPrice"));
+                        imageUrl = obj.getJSONObject(i).getJSONArray("Photos").getJSONObject(0).getString("Url");
                     }
                     catch (Exception e) {
                         listPrice = 0;
                     }
-                    String imageUrl = obj.getJSONObject(i).getJSONArray("Photos").getJSONObject(0).getString("Url");
+
                     listArray.add(new SaleListing(id, title, feature, itemUrl, imageUrl, salePrice, listPrice));
                 }
             }

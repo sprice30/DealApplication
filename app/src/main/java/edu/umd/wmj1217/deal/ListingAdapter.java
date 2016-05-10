@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -18,10 +20,13 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListingAdapter extends BaseAdapter{
+public class ListingAdapter extends BaseAdapter implements Filterable {
 
-    private final List<SaleListing> mItems = new ArrayList<SaleListing>();
+    private List<SaleListing> mItems = new ArrayList<SaleListing>();
+    private List<SaleListing> saveItems = new ArrayList<SaleListing>();
+    private List<SaleListing> filteredItems = new ArrayList<>();
     private final Context mContext;
+    private ItemFilter mFilter = new ItemFilter();
 
     private static final String TAG = "Lab-LocationLab";
 
@@ -37,6 +42,7 @@ public class ListingAdapter extends BaseAdapter{
     public void add(SaleListing item) {
 
         mItems.add(item);
+        saveItems.add(item);
         notifyDataSetChanged();
 
     }
@@ -44,8 +50,9 @@ public class ListingAdapter extends BaseAdapter{
     // Clears the list adapter of all items.
 
     public void clear() {
-
+        System.out.println("IN CLEAR");
         mItems.clear();
+        saveItems.clear();
         notifyDataSetChanged();
 
     }
@@ -75,6 +82,10 @@ public class ListingAdapter extends BaseAdapter{
 
         return pos;
 
+    }
+
+    public Filter getFilter() {
+        return mFilter;
     }
 
     // Create a View for the ToDoItem at specified position
@@ -130,12 +141,14 @@ public class ListingAdapter extends BaseAdapter{
         protected Bitmap doInBackground(String... urls) {
             String urldisplay = urls[0];
             Bitmap bitmap = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                bitmap = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Exception: ", e.getMessage());
-                e.printStackTrace();
+            if (urldisplay.length() > 0) {
+                try {
+                    InputStream in = new java.net.URL(urldisplay).openStream();
+                    bitmap = BitmapFactory.decodeStream(in);
+                } catch (Exception e) {
+                    Log.e("Exception: ", e.getMessage());
+                    e.printStackTrace();
+                }
             }
             return bitmap;
         }
@@ -143,5 +156,51 @@ public class ListingAdapter extends BaseAdapter{
         protected void onPostExecute(Bitmap result) {
             image.setImageBitmap(result);
         }
+    }
+
+    private class ItemFilter extends Filter {
+
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+
+            String filterString = constraint.toString().toLowerCase();
+
+            FilterResults results = new FilterResults();
+
+            final List<SaleListing> list = saveItems;
+
+            int count = list.size();
+            final ArrayList<SaleListing> nlist = new ArrayList<>(count);
+
+            SaleListing filterableString ;
+
+            for (int i = 0; i < count; i++) {
+                filterableString = list.get(i);
+                if (filterableString.getTitle().toLowerCase().contains(filterString) ||
+                        filterableString.getDescription().toLowerCase().contains(filterString)) {
+                    System.out.println(filterableString.getTitle());
+                    nlist.add(filterableString);
+                }
+            }
+
+            results.values = nlist;
+            results.count = nlist.size();
+
+            return results;
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        protected void publishResults(CharSequence constraint, Filter.FilterResults results) {
+            ArrayList<SaleListing> hold  = (ArrayList<SaleListing>) results.values;
+            if (hold.size() > 0 || constraint.toString().length() > 0) {
+                mItems = hold;
+            }
+            else {
+                mItems = saveItems;
+            }
+            notifyDataSetChanged();
+        }
+
     }
 }

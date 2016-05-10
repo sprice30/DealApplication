@@ -6,6 +6,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -81,6 +83,23 @@ public class MainActivity extends Activity
                 startActivity(myIntent);
             }
         });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if(listingAdapter!=null) {
+                    System.out.println(newText);
+                    listingAdapter.getFilter().filter(newText);
+                    return true;
+                }
+                return false;
+            }
+        });
         // fetch data
         // TODO - Loading icon while waiting for result
         WootFetcher fetch = new WootFetcher(null);
@@ -102,14 +121,13 @@ public class MainActivity extends Activity
         int id = item.getItemId();
 
         if(id == R.id.clothing){
-            WootFetcher fetch1 = new WootFetcher("clothing");
-
-        } else if (id == R.id.electronics){
+            WootFetcher fetch1 = new WootFetcher("shirt");
+        }else if (id == R.id.electronics){
             WootFetcher fetch2 = new WootFetcher("electronics");
         }else if(id == R.id.food){
-            WootFetcher fetch3 = new WootFetcher("food");
+            WootFetcher fetch3 = new WootFetcher("wine");
         }else{//id == R.id.travel
-            WootFetcher fetch4 = new WootFetcher("travel");
+            WootFetcher fetch4 = new WootFetcher("home");
         }
 
         final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
