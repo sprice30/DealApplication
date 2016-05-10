@@ -29,7 +29,7 @@ public class MainActivity extends Activity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         SearchView searchView = (SearchView)findViewById(R.id.search_view);
-        searchView.setQueryHint("Search coupon");
+        searchView.setQueryHint("Search for deal");
 //        searchView.onActionViewExpanded();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
