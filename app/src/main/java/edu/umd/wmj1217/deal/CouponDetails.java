@@ -50,15 +50,6 @@ public class CouponDetails extends AppCompatActivity {
     }
 
     public void onSaveClick(View v){
-
-//        myIntent.putExtra("Id", listing.getID());
-//        myIntent.putExtra("Title", listing.getTitle());
-//        myIntent.putExtra("Description", listing.getDescription());
-//        myIntent.putExtra("Url", listing.getItemUrl());
-//        myIntent.putExtra("Image", listing.getImageUrl());
-//        myIntent.putExtra("SalePrice", listing.getSalePrice() + "");
-//        myIntent.putExtra("ListPrice", listing.getListPrice() + "");
-
         String id = getIntent().getStringExtra("Id");
         String title = getIntent().getStringExtra("Title");
         String description = getIntent().getStringExtra("Description");
@@ -68,7 +59,6 @@ public class CouponDetails extends AppCompatActivity {
         double listPrice = Double.valueOf(getIntent().getStringExtra("ListPrice"));
 
         MainActivity.couponBook.add(new SaleListing(id, title, description, itemUrl, imageUrl, salePrice, listPrice));
-        finish();
     }
 
     public void onDealClick(View view) {
